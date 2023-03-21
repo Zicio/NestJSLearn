@@ -8,12 +8,19 @@ import {
   Param,
   Post,
   Put,
+  UseInterceptors,
+  UsePipes,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { Book } from './schemas/books.schema';
 import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
+import { BooksDataInterceptor } from './books.data.interceptor';
+import { createBookSchema } from './validation/schemas/createBook.schema';
+import { JoiValidationPipe } from './validation/joi.validation.pipe';
+import { editBookSchema } from './validation/schemas/editBook.schema';
+import { EditBookDto } from './dto/edit-book.dto';
 
+@UseInterceptors(BooksDataInterceptor)
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
@@ -28,6 +35,7 @@ export class BooksController {
     return this.booksService.getById(id);
   }
 
+  @UsePipes(new JoiValidationPipe(createBookSchema))
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() createBookDto: CreateBookDto): Promise<Book> {
@@ -39,11 +47,12 @@ export class BooksController {
     return this.booksService.remove(id);
   }
 
+  @UsePipes(new JoiValidationPipe(editBookSchema))
   @Put(':id')
-  update(
+  edit(
     @Param('id') id: string,
-    @Body() updateBookDto: UpdateBookDto,
+    @Body() editBookDto: EditBookDto,
   ): Promise<Book> {
-    return this.booksService.update(id, updateBookDto);
+    return this.booksService.edit(id, editBookDto);
   }
 }

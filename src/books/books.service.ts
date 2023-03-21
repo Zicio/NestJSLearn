@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Book, BookDocument } from './schemas/books.schema';
 import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
+import { EditBookDto } from './dto/edit-book.dto';
 
 @Injectable()
 export class BooksService {
@@ -26,7 +26,7 @@ export class BooksService {
     return this.bookModel.findByIdAndDelete(id);
   }
 
-  async update(id: string, bookDto: UpdateBookDto): Promise<Book> {
+  async edit(id: string, bookDto: EditBookDto): Promise<Book> {
     return this.bookModel.findByIdAndUpdate(id, bookDto);
   }
 }

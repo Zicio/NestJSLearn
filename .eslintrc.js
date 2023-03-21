@@ -20,6 +20,8 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
+    'no-unused-vars': 'warn',
+    'class-methods-use-this': 'off',
     'new-cap': 'off',
     'prettier/prettier': 'error',
     '@typescript-eslint/interface-name-prefix': 'off',

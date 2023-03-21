@@ -1,4 +1,4 @@
-export class UpdateBookDto {
+export class EditBookDto {
   readonly title: string;
 
   readonly description: string;
