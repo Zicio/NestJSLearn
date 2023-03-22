@@ -4,23 +4,24 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpException,
   HttpStatus,
   Param,
   Post,
   Put,
-  UseInterceptors,
+  UseFilters,
   UsePipes,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { Book } from './schemas/books.schema';
 import { CreateBookDto } from './dto/create-book.dto';
-import { BooksDataInterceptor } from './books.data.interceptor';
 import { createBookSchema } from './validation/schemas/createBook.schema';
 import { JoiValidationPipe } from './validation/joi.validation.pipe';
 import { editBookSchema } from './validation/schemas/editBook.schema';
 import { EditBookDto } from './dto/edit-book.dto';
+import { HttpExceptionFilter } from './http.exception.filter';
 
-@UseInterceptors(BooksDataInterceptor)
+// @UseInterceptors(BooksDataInterceptor)
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
@@ -30,8 +31,10 @@ export class BooksController {
     return this.booksService.getAll();
   }
 
+  @UseFilters(new HttpExceptionFilter())
   @Get(':id')
   getOne(@Param('id') id: string): Promise<Book> {
+    throw new HttpException('Ошибка', 500);
     return this.booksService.getById(id);
   }
 
