@@ -13,7 +13,7 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
-import { Book } from './schemas/books.schema';
+import { Book } from './schemas/book.schema';
 import { CreateBookDto } from './dto/create-book.dto';
 import { createBookSchema } from './validation/schemas/createBook.schema';
 import { JoiValidationPipe } from './validation/joi.validation.pipe';

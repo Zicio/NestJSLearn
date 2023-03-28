@@ -15,4 +15,4 @@ export class Book {
   authors: string;
 }
 
-export const BooksSchema = SchemaFactory.createForClass(Book);
+export const BookSchema = SchemaFactory.createForClass(Book);
