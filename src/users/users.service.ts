@@ -4,12 +4,14 @@ import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User, UserDocument } from './schemas/user.schema';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     private jwtService: JwtService,
+    private authService: AuthService,
   ) {}
 
   async findOne(id: number): Promise<UserDocument | undefined> {
@@ -28,11 +30,11 @@ export class UsersService {
       lastName,
     });
 
-    const token = this.jwtService.sign({
+    const token = this.authService.createToken({
       // eslint-disable-next-line no-underscore-dangle
       id: user._id,
+      password: hashedPassword,
       email,
-      firstName,
     });
     return { token };
   }
