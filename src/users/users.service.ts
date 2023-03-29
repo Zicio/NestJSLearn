@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { User, UserDocument } from './schemas/user.schema';
 import { AuthService } from '../auth/auth.service';
 
@@ -33,8 +33,8 @@ export class UsersService {
     const token = this.authService.createToken({
       // eslint-disable-next-line no-underscore-dangle
       id: user._id,
-      password: hashedPassword,
       email,
+      firstName,
     });
     return { token };
   }
