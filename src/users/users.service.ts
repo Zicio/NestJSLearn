@@ -9,17 +9,20 @@ export class UsersService {
 
   async findOne(id: string): Promise<any> {
     // eslint-disable-next-line no-underscore-dangle
-    return this.userModel.findOne((user: UserDocument) => user._id === id);
+    return this.userModel.findOne({ _id: id });
   }
 
-  async create(user: User) {
-    const checkUnique = await this.userModel.exists(
-      (userInDB: UserDocument) => userInDB.email === user.email,
-    );
+  async findByEmail(email: string) {
+    return this.userModel.findOne({ email });
+  }
+
+  async create(user: User): Promise<UserDocument> {
+    const checkUnique = await this.userModel.exists({ email: user.email });
     if (checkUnique) {
       throw new ConflictException('User already exist');
     }
     const newUser = await new this.userModel(user);
-    return newUser.save();
+    await newUser.save();
+    return newUser;
   }
 }

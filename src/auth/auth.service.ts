@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
 import { SignUpDto } from './dto/signUp.dto';
 import { UserDocument } from '../users/schemas/user.schema';
@@ -21,15 +21,16 @@ export class AuthService {
     return null;
   }
 
-  async login(user: UserDocument) {
+  async createToken(user: UserDocument) {
     const payload = {
       // eslint-disable-next-line no-underscore-dangle
       id: user._id,
       email: user.email,
       firstName: user.firstName,
     };
+    const token = this.jwtService.sign(payload);
     return {
-      access_token: this.jwtService.sign(payload),
+      token,
     };
   }
 
@@ -42,12 +43,20 @@ export class AuthService {
       firstName,
       lastName,
     });
+    return newUser;
   }
 
   async signIn(signInDto: SignInDto) {
-    // const user: UserDocument = await this.usersService.findOne(); // TODO создать метод в usersService, дергающий user по email и password
-    if (user) {
-      await this.login(user);
+    const user: UserDocument = await this.usersService.findByEmail(
+      signInDto.email,
+    );
+    const isValidPassword = await bcrypt.compare(
+      signInDto.password,
+      user.password,
+    );
+    if (!user || !isValidPassword) {
+      throw new UnauthorizedException('Invalid credentials');
     }
+    return this.createToken(user);
   }
 }

@@ -10,9 +10,9 @@ import { UsersModule } from '../users/users.module';
     UsersModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: process.env.JWT_SECRET || '3000',
+      secret: process.env.JWT_SECRET || '5000',
       signOptions: {
-        expiresIn: `${process.env.JWT_EXPIRES}` || '60s',
+        expiresIn: process.env.JWT_EXPIRES || '60',
       },
     }),
   ],
