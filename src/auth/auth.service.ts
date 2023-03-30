@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
 import { SignUpDto } from './dto/signUp.dto';
 import { UserDocument } from '../users/schemas/user.schema';
+import { SignInDto } from './dto/singIn.dto';
 
 @Injectable()
 export class AuthService {
@@ -41,6 +42,12 @@ export class AuthService {
       firstName,
       lastName,
     });
-    await this.login(newUser);
+  }
+
+  async signIn(signInDto: SignInDto) {
+    // const user: UserDocument = await this.usersService.findOne(); // TODO создать метод в usersService, дергающий user по email и password
+    if (user) {
+      await this.login(user);
+    }
   }
 }
