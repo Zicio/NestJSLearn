@@ -8,8 +8,7 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async findOne(id: string): Promise<any> {
-    // eslint-disable-next-line no-underscore-dangle
-    return this.userModel.findOne({ _id: id });
+    return this.userModel.findById(id);
   }
 
   async findByEmail(email: string) {
