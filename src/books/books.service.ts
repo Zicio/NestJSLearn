@@ -9,24 +9,23 @@ import { EditBookDto } from './dto/edit-book.dto';
 export class BooksService {
   constructor(@InjectModel(Book.name) private bookModel: Model<BookDocument>) {}
 
-  async getAll(): Promise<Book[]> {
-    return this.bookModel.find().exec();
+  async getAll(): Promise<BookDocument[]> {
+    return this.bookModel.find();
   }
 
-  async getById(id: string): Promise<Book> {
+  async getById(id: string): Promise<BookDocument> {
     return this.bookModel.findById(id);
   }
 
-  async create(bookDto: CreateBookDto): Promise<Book> {
-    const newBook = new this.bookModel(bookDto);
-    return newBook.save();
+  async create(bookDto: CreateBookDto): Promise<BookDocument> {
+    return new this.bookModel(bookDto).save();
   }
 
-  async remove(id: string): Promise<Book> {
+  async remove(id: string): Promise<BookDocument> {
     return this.bookModel.findByIdAndDelete(id);
   }
 
-  async edit(id: string, bookDto: EditBookDto): Promise<Book> {
+  async edit(id: string, bookDto: EditBookDto): Promise<BookDocument> {
     return this.bookModel.findByIdAndUpdate(id, bookDto);
   }
 }

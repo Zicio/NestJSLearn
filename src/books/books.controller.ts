@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   HttpCode,
-  HttpException,
   HttpStatus,
   Param,
   Post,
@@ -34,7 +33,7 @@ export class BooksController {
   @UseFilters(new HttpExceptionFilter())
   @Get(':id')
   getOne(@Param('id') id: string): Promise<Book> {
-    throw new HttpException('Ошибка', 500);
+    // throw new HttpException('Ошибка', 500);
     return this.booksService.getById(id);
   }
 
