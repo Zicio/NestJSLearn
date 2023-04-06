@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { catchError, map, Observable, of } from 'rxjs';
-import { BookCommentDocument } from './schemas/bookComment.schema';
+import { BookCommentDocument } from './schemas/book-comment.schema';
 
 interface IResponse {
   status: string;

@@ -2,14 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { from, Observable } from 'rxjs';
-import { Bookcomment, BookCommentDocument } from './schemas/bookComment.schema';
-import { CreateBookCommentDto } from './dto/create-bookComment.dto';
-import { UpdateBookCommentDto } from './dto/update-bookComment.dto';
+import {
+  BookComment,
+  BookCommentDocument,
+} from './schemas/book-comment.schema';
+import { CreateBookCommentDto } from './dto/create-book-сomment.dto';
+import { UpdateBookCommentDto } from './dto/update-book-comment.dto';
 
 @Injectable()
 export class BookCommentsService {
   constructor(
-    @InjectModel(Bookcomment.name)
+    @InjectModel(BookComment.name)
     private bookCommentModel: Model<BookCommentDocument>,
   ) {}
 

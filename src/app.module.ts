@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { BooksModule } from './books/books.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { BookCommentsModule } from './bookComments/bookComments.module';
+import { BookCommentsModule } from './book-сomments/book-comments.module';
 
 @Module({
   imports: [

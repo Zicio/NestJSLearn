@@ -9,11 +9,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { BookCommentsService } from './bookComments.service';
-import { BookCommentDocument } from './schemas/bookComment.schema';
-import { CreateBookCommentDto } from './dto/create-bookComment.dto';
-import { UpdateBookCommentDto } from './dto/update-bookComment.dto';
-import { BookCommentsDataInterceptor } from './bookComments.data.interceptor';
+import { BookCommentsService } from './book-comments.service';
+import { BookCommentDocument } from './schemas/book-comment.schema';
+import { CreateBookCommentDto } from './dto/create-book-сomment.dto';
+import { UpdateBookCommentDto } from './dto/update-book-comment.dto';
+import { BookCommentsDataInterceptor } from './book-comments.data.interceptor';
 
 @UseInterceptors(BookCommentsDataInterceptor)
 @Controller('books/:id/comments')

@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type BookCommentDocument = Bookcomment & Document;
+export type BookCommentDocument = BookComment & Document;
 
 @Schema()
-export class Bookcomment {
+export class BookComment {
   @Prop({ required: true })
   bookId: number;
 
@@ -12,4 +12,4 @@ export class Bookcomment {
   comment: string;
 }
 
-export const BookCommentSchema = SchemaFactory.createForClass(Bookcomment);
+export const BookCommentSchema = SchemaFactory.createForClass(BookComment);
