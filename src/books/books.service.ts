@@ -10,7 +10,7 @@ export class BooksService {
   constructor(@InjectModel(Book.name) private bookModel: Model<BookDocument>) {}
 
   async getAll(): Promise<Book[]> {
-    return this.bookModel.find().exec();
+    return this.bookModel.find();
   }
 
   async getById(id: string): Promise<Book> {
